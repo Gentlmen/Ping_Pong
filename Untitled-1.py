@@ -1,13 +1,29 @@
 from pygame import *
 from random import randint
-
-score = 0 
-lost = 0 
  
-win_width = 700
-win_height = 500
+ 
+ 
+mixer.init()
+mixer.music.load('space.mp3')
+mixer.music.play()
+ 
+ 
+font.init()
+font1 = font.SysFont('Arial', 80)
+win = font1.render('YOU WIN!', True, (255, 255, 255))
+lose = font1.render('YOU LOSE!', True, (180, 0, 0))
+font2 = font.SysFont('Arial', 36)
+ 
+ 
+img_back = "galaxy.jpg" 
+img_hero = "platform.jpg"
+img_enemy = "mach.jpg"
+
+win_width = 1000
+win_height = 700
 display.set_caption("Ping_Pong")
 window = display.set_mode((win_width, win_height))
+background = transform.scale(image.load(img_back), (win_width, win_height))
 
 class GameSprite(sprite.Sprite):
  
@@ -23,9 +39,6 @@ class GameSprite(sprite.Sprite):
         self.rect = self.image.get_rect()
         self.rect.x = player_x
         self.rect.y = player_y
- 
-    def reset(self):
-        window.blit(self.image, (self.rect.x, self.rect.y))
 
 class Player(GameSprite):
    
@@ -47,6 +60,7 @@ class Enemy(GameSprite):
             self.rect.y = 0
             lost = lost + 1
 
+run = True 
 while run:
    
     for e in event.get():
